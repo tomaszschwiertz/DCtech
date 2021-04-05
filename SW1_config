@@ -1,0 +1,15 @@
+root@vqfx-re>
+login: root
+password: Juniper
+
+type "cli"
+
+delete interfaces xe-0/0/1 unit 0 family inet dhcp
+set interfaces xe-0/0/1 unit 0 family inet address 172.16.1.1/24
+
+delete interfaces xe-0/0/2 unit 0 family inet dhcp
+set interfaces xe-0/0/2 unit 0 family inet address 172.16.2.1/24
+
+set interfaces lo0 unit 0 family inet address 1.1.1.1/32
+set routing-options router-id 1.1.1.1
+set routing-options autonomous-system 64514
