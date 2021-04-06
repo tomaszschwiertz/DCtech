@@ -1,0 +1,16 @@
+set interfaces lo0 unit 0 family inet address 1.1.1.1/32
+set routing-options router-id 1.1.1.1
+set routing-options autonomous-system 64514
+set routing-options forwarding-table export load-balance
+
+set protocols bgp group spine type external
+set protocols bgp group spine export direct
+set protocols bgp group spine multipath multiple-as
+set protocols bgp group spine neighbor 172.16.1.2 peer-as 64512
+set protocols bgp group spine neighbor 172.16.2.2 peer-as 64513
+
+set policy-options policy-statement direct term 10 from protocol direct
+set policy-options policy-statement direct term 10 from route-filter 10.1.1.0/24 exact
+set policy-options policy-statement direct term 10 then accept
+set policy-options policy-statement load-balance term 10 then load-balance per-packet
+set policy-options policy-statement load-balance term 10 then accept
