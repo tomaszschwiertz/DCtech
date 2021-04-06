@@ -1,0 +1,12 @@
+set interfaces lo0 unit 0 family inet address 2.2.2.2/32
+set routing-options router-id 2.2.2.2
+set routing-options autonomous-system 64512
+set routing-options forwarding-table export load-balance
+
+set protocols bgp group leaves type external
+set protocols bgp group leaves multipath multiple-as
+set protocols bgp group leaves neighbor 172.16.1.1 peer-as 64514
+set protocols bgp group leaves neighbor 172.16.3.2 peer-as 64515
+
+set policy-options policy-statement load-balance term 10 then load-balance per-packet
+set policy-options policy-statement load-balance term 10 then accept
